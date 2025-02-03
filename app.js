@@ -5,8 +5,10 @@ import passport from 'passport';
 import dotenv from 'dotenv';
 import { engine } from 'express-handlebars';
 import path from 'path';
-import sessionRoutes from './routes/sessionRoutes.js';
-import './config/passport.js';
+import sessionRoutes from './src/routes/sessionRoutes.js';
+import productRoutes from './src/routes/productRoutes.js';
+import cartRoutes from './src/routes/cartRoutes.js';
+import './src/config/passport.js';
 
 dotenv.config();
 
@@ -28,8 +30,9 @@ app.set('view engine', 'handlebars');
 app.set('views', path.resolve('views'));
 
 // Middlewares
-app.use(express.json());
-app.use(cookieParser());
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser()); 
 app.use(passport.initialize());
 
 // Conexión a MongoDB
@@ -39,10 +42,12 @@ mongoose.connect(uri, { dbName })
 
 // Rutas de API
 app.use('/api/sessions', sessionRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/carts', cartRoutes);
 
-// Ruta principal para renderizar la vista de inicio
+// Ruta principal
 app.get('/', (req, res) => {
-  res.render('home', { title: 'Inicio', user: null }); // Enviar datos dinámicos si es necesario
+  res.render('home', { title: 'Inicio', user: req.user || null }); 
 });
 
 // Iniciar el servidor

@@ -12,15 +12,15 @@ const userSchema = new mongoose.Schema({
 });
 
 // Middleware para encriptar contraseña
-userSchema.pre('save', function (next) {
+userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
-  this.password = bcrypt.hashSync(this.password, 10);
+  this.password = await bcrypt.hash(this.password, 10); 
   next();
 });
 
 // Método para validar contraseña
-userSchema.methods.isValidPassword = function (password) {
-  return bcrypt.compareSync(password, this.password);
+userSchema.methods.validatePassword = async function (password) { 
+  return await bcrypt.compare(password, this.password);
 };
 
 export default mongoose.model('User', userSchema);

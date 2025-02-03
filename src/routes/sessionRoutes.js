@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// 🔹 Obtener usuario actual (protección con Passport y DTO)
+// 🔹 Obtener usuario actual 
 router.get('/current', passport.authenticate('current', { session: false }), (req, res) => {
     res.json({ user: req.user });
 });

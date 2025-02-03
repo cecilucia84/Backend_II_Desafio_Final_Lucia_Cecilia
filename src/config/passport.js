@@ -12,7 +12,7 @@ const opts = {
   secretOrKey: process.env.JWT_SECRET || 'your_secret_key',
 };
 
-// 🔹 Estrategia JWT para autenticación con Bearer Token
+// Estrategia JWT
 passport.use(
   new JwtStrategy(opts, async (jwtPayload, done) => {
     try {
@@ -25,7 +25,7 @@ passport.use(
   })
 );
 
-// 🔹 Estrategia personalizada para autenticación con cookies
+// Estrategia con cookies
 passport.use(
   'current',
   new CustomStrategy(async (req, done) => {

@@ -11,7 +11,7 @@
     "passport-custom": "^1.1.1",
     "passport-jwt": "^4.0.1"
   },
-  "name": "backend-ii---desafio-1",
+  "name": "backend-ii---desafio-final",
   "version": "1.0.0",
   "main": "app.js",
   "type": "module",

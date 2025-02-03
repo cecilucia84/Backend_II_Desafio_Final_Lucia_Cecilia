@@ -1,14 +1,15 @@
 import express from 'express';
-import { authorize } from '../middlewares/auth.js';
 import passport from 'passport';
+import { authorize } from '../middlewares/auth.js';
+import ProductRepository from '../repositories/ProductRepository.js';
 
 const router = express.Router();
+const productRepository = new ProductRepository();
 
-// 🔹 Solo un administrador puede crear un producto
 router.post('/', passport.authenticate('current', { session: false }), authorize(['admin']), async (req, res) => {
     try {
-        // Lógica para crear un producto...
-        res.status(201).json({ message: 'Producto creado exitosamente' });
+        const product = await productRepository.createProduct(req.body);
+        res.status(201).json(product);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
