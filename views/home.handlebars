@@ -1,0 +1,7 @@
+<h1>Bienvenido a mi aplicación</h1>
+<p>Este es el contenido dinámico de la página de inicio.</p>
+{{#if user}}
+  <p>Hola, {{user.first_name}}!</p>
+{{else}}
+  <p>Por favor, <a href="/api/sessions/login">inicia sesión</a>.</p>
+{{/if}}
