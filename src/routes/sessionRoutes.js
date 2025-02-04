@@ -6,7 +6,7 @@ import UserRepository from '../repositories/UserRepository.js';
 const router = express.Router();
 const userRepository = new UserRepository();
 
-// 🔹 Registro de usuario
+// Registro de usuario
 router.post('/register', async (req, res) => {
     try {
         await userRepository.createUser(req.body);
@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// 🔹 Login de usuario
+// Login de usuario
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -36,12 +36,12 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// 🔹 Obtener usuario actual 
+// Obtener usuario actual
 router.get('/current', passport.authenticate('current', { session: false }), (req, res) => {
     res.json({ user: req.user });
 });
 
-// 🔹 Cerrar sesión
+// Cerrar sesión
 router.post('/logout', (req, res) => {
     res.clearCookie('token');
     res.json({ message: 'Sesión cerrada correctamente' });
