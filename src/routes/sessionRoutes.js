@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
         const isValidPassword = await userRepository.validatePassword(email, password);
         if (!isValidPassword) return res.status(401).json({ message: 'Email o contraseña inválidos' });
 
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || 'your_secret_key', { expiresIn: '1h' });
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
         res.json({ message: 'Inicio de sesión exitoso', token });

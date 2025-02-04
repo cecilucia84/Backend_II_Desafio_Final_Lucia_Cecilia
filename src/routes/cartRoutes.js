@@ -5,7 +5,7 @@ import Ticket from '../models/Ticket.js';
 
 const router = express.Router();
 
-// Ruta para procesar la compra del carrito
+
 router.post("/:cid/purchase", authorize(["user"]), async (req, res) => {
     try {
         const cart = await Cart.findById(req.params.cid).populate("products.product");
